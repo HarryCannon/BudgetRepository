@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 import functools
+import math
 
 from backend.models import *
 
@@ -55,7 +56,7 @@ class NewExpense(APIView):
     def post(self, request):
         name = request.POST.get('name')
         date = request.POST.get('date')
-        value = int(request.POST.get('value'))
+        value = math.floor(float(float(request.POST.get('value')) * 100))
         description = request.POST.get('description')
 
         # Putting existing expense in given date
