@@ -232,9 +232,13 @@ var Day = React.createClass({
   onClick: function() {
     this.props.onGetExpenses(this.props.day)
   },
+  sanitizeValue : function(value) {
+    var dollars = value / 100;
+    return "$" + dollars;
+  },
   render: function() {
     var date = this.props.day.date;
-    var balance = this.props.day.balance;
+    var balance = this.sanitizeValue(this.props.day.balance);
 
     return (
       <div className="dayButton" onClick={this.onClick}>
@@ -269,9 +273,13 @@ var Expense = React.createClass({
   onClick: function() {
     this.props.onGetExpenseDescription(this.props.expense)
   },
+  sanitizeValue : function(value) {
+    var dollars = value / 100;
+    return "$" + dollars;
+  },
   render: function() {
     var name = this.props.expense.name;
-    var value = this.props.expense.value;
+    var value = this.sanitizeValue(this.props.expense.value);
 
     return (
       <div className="expenseButton" onClick={this.onClick}>
@@ -334,6 +342,8 @@ var MainPage = React.createClass({
             console.error(this.props.url, status, err.toString());
           }.bind(this)
         });
+        this.setState({expenseDescription: ''})
+        this.setState({expenses: []})
     },
     onNewExpense: function(data) {
         $.ajax({
@@ -356,6 +366,7 @@ var MainPage = React.createClass({
     onGetExpenses: function(day)
     {
         this.setState({expenses: day.expenses})
+        this.setState({expenseDescription: ''})
     },
     onGetExpenseDescription: function(expense)
     {

@@ -72,7 +72,7 @@ class NewExpense(APIView):
 
         # Putting existing expense in given date
         if value == 0:
-            expenses = Expense.all().filter(name=name)
+            expenses = Expense.objects.filter(name=name)
             #Expense found
             if expenses.count() > 0:
                 expense = expenses[0]
