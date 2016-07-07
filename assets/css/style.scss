@@ -1,0 +1,50 @@
+$red: red;
+$grey: #F3F3F3;
+
+body {
+    background-color: $red;
+}
+
+.dayButton {
+    background-color: white;
+    padding: 20px;
+    font-size: 18px;
+    border: 1px solid $grey;
+
+    &:hover {
+        background-color: $grey;
+        cursor: pointer;
+    }
+
+    .dayDate {
+        display: inline-block;
+        width: 80%;
+    }
+
+    .dayBalance {
+        display: inline-block;
+        width: 20%;
+    }
+}
+
+.expenseButton {
+    background-color: white;
+    padding: 20px;
+    font-size: 18px;
+    border: 1px solid $grey;
+
+    &:hover {
+        background-color: $grey;
+        cursor: pointer;
+    }
+
+    .expenseName {
+        display: inline-block;
+        width: 80%;
+    }
+
+    .expenseValue {
+        display: inline-block;
+        width: 20%;
+    }
+}
