@@ -39,18 +39,6 @@ class Serializers(object):
         data["id"] = expense.id
         return data
 
-class AllComments(APIView):
-    def get(self, request):
-        comments = map(lambda c: {"id": c.id, "text": c.text, "author": c.author}, Comment.objects.all())
-        return Response(comments)
-
-    def post(self, request):
-        author = request.POST.get('author')
-        text = request.POST.get('text')
-        new_comment = Comment(author=author, text=text)
-        new_comment.save()
-        comments = map(lambda c: {"id": c.id, "text": c.text, "author": c.author}, Comment.objects.all())
-        return Response(comments)
 
 class NewExpense(APIView):
     def AddExpenseToDay(expense, date):
@@ -85,21 +73,6 @@ class NewExpense(APIView):
             NewExpense.AddExpenseToDay(new_expense, date)
 
         return Response(None)
-
-
-class GetDay(APIView):
-    def get(self, request):
-        query_date = request.GET.get('date')
-
-        days = Day.objects.all().filter(date=query_date)
-        
-        if (days.count() > 0):
-            day = days[0]
-            return Response({'day' : day_serializer(day)})
-        else:
-            day = Day(date = query_date)
-            day.save()
-            return Response({'day' : day_serializer(day)})
 
 class SearchDays(APIView):
     def get(self, request):
