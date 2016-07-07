@@ -23,11 +23,17 @@ class Serializers(object):
         return balance;
 
     @staticmethod
+    def compute_value(day):
+        values = map(lambda x : x.value, day.expenses.all())
+        return functools.reduce(lambda x, y : x + y, values, 0)
+
+    @staticmethod
     def day_serializer(day):
         data = {}
         data["date"] = day.date
         data["expenses"] = map(Serializers.expense_serializer, day.expenses.all().order_by("name"))
         data["balance"] = Serializers.compute_balance(day)
+        data["value"] = Serializers.compute_value(day)
         data["id"] = day.id
         return data
 
@@ -76,11 +82,30 @@ class NewExpense(APIView):
         return Response(None)
 
 class SearchDays(APIView):
+    def date_mapper(day):
+        ymd = day.date.split("-")
+        date = datetime.date(int(ymd[0]), int(ymd[1]), int(ymd[2]))
+        balance = day.balance
+
+        return (date, balance)
+
     def get(self, request):
         lower_date = request.GET.get('lower_date')
         upper_date = request.GET.get('upper_date')
 
         days = Day.objects.filter(date__gte=lower_date).filter(date__lte=upper_date).order_by("date")
+
+        '''
+        Graphing stuff
+        
+        tuple_list = map(SearchDays.date_mapper, days)
+        lists - map(list, zip(*tuple_list))
+        dates = lists[0]
+        balances = lists[1]
+        plottable_dates = matplotlib.dates.date2num(dates)
+        matplotlib.pyplot.plot_date(plottable_dates, balaces)
+        matplotlib.pyplot.savefig("graph.png", bbox_inches='tight')
+        '''
 
         return Response({'days' : map(Serializers.day_serializer, days)})
 

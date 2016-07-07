@@ -16,12 +16,12 @@ body {
 
 .dayList {
 	display: inline-block;
-	width: 20%
+	width: 40%
 }
 
 .expenseList {
 	display: inline-block;
-	width: 30%
+	width: 20%
 }
 
 .expenseDescription {
@@ -45,12 +45,17 @@ body {
 
     .dayDate {
         display: inline-block;
-        width: 50%;
+        width: 33%;
+    }
+
+    .dayValue {
+        display: inline-block;
+        width : 33%
     }
 
     .dayBalance {
         display: inline-block;
-        width: 50%;
+        width: 33%;
     }
 }
 

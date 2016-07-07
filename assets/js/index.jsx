@@ -117,11 +117,15 @@ var Day = React.createClass({
   render: function() {
     var date = this.props.day.date;
     var balance = this.sanitizeValue(this.props.day.balance);
+    var value = this.sanitizeValue(this.props.day.value);
 
     return (
       <div className="dayButton" onClick={this.onClick}>
         <div className="dayDate">
           {date}
+        </div>
+        <div className="dayValue">
+          {value}
         </div>
         <div className="dayBalance">
           {balance}
