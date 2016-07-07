@@ -25,7 +25,7 @@ class Serializers(object):
     def day_serializer(day):
         data = {}
         data["date"] = day.date
-        data["expenses"] = map(Serializers.expense_serializer, day.expenses.all())
+        data["expenses"] = map(Serializers.expense_serializer, day.expenses.all().order_by("name"))
         data["balance"] = Serializers.compute_balance(day)
         data["id"] = day.id
         return data
@@ -79,7 +79,7 @@ class SearchDays(APIView):
         lower_date = request.GET.get('lower_date')
         upper_date = request.GET.get('upper_date')
 
-        days = Day.objects.filter(date__gte=lower_date).filter(date__lte=upper_date)
+        days = Day.objects.filter(date__gte=lower_date).filter(date__lte=upper_date).order_by("date")
 
         return Response({'days' : map(Serializers.day_serializer, days)})
 
