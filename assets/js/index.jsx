@@ -255,8 +255,10 @@ var MainPage = React.createClass({
     render: function() {
         return (
             <div className="mainPage">
-                <h1>Budget Tracker</h1>
+                <h1>Budget Tracker (aka Salty Parsnip)</h1>
+                <h5>Enter a new expense. To reuse an existing one, use the same name, a new date and set the value to 0</h5>
                 <NewExpenseForm onNewExpense={this.onNewExpense}/>
+                <h5>Search for expenses between the dates given</h5>
                 <SearchDaysForm onSearchDays={this.onSearchDays}/>
                 <DayList data={this.state} onGetExpenses={this.onGetExpenses}/>
                 <ExpenseList data={this.state} onGetExpenseDescription={this.onGetExpenseDescription}/>
